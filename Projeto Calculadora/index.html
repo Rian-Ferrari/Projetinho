@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora do Rian</title>
+</head>
+<body>
+    <div>
+        <h1>Calculadora</h1>
+        <div>
+            Insira o 1° número:
+            <input type="number" id="input_primeiro_valor" required>
+            Insira o 2° número:
+            <input type="number" id="input_segundo_valor" required>
+        </div>
+        <div>
+            <button onclick="Soma()">
+                Somar
+            </button>
+            <button onclick="Subtracao()">
+                Subtrair
+            </button>
+            <button onclick="Multiplicacao()">
+                Multiplicar
+            </button>
+            <button onclick="Divisao()">
+                Dividir
+            </button>
+        </div>
+        <div id="div_exibir_resultado">
+
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+
+$(document).ready(function() {
+        var socket = io("localhost:5000")
+        socket.on("connect", function() {
+            console.log("conectou");
+        });
+        
+        
+    var primeiroValor = input_primeiro_valor.value;
+    var segundoValor = input_segundo_valor.value;
+    var historico = [];
+
+    function Soma() {
+        var valorDaSoma = 0; 
+        valorDaSoma = primeiroValor + segundoValor; 
+        div_exibir_resultado.innerHTML = `${valorDaSoma}`;
+        historico.push(valorDaSoma);
+    };
+    function Subtracao() {
+        var valorDaSubtracao = 0;
+        valorDaSubtracao = primeiroValor - segundoValor;
+        div_exibir_resultado.innerHTML = `${valorDaSubtracao}`;
+        historico.push(valorDaSubtracao); 
+    };
+    function Multiplicacao() {
+        var valorDaMultiplicacao = 0;
+        valorDaMultiplicacao = primeiroValor * segundoValor;
+        div_exibir_resultado.innerHTML = `${valorDaMultiplicacao}`;
+        historico.push(valorDaMultiplicacao);
+    };
+    function Divisao() {
+        var valorDaDivisao = 0;
+        valorDaDivisao = primeiroValor / segundoValor;
+        div_exibir_resultado.innerHTML = `${valorDaDivisao}`;
+        historico.push(valorDaDivisao);
+    };
+});
+</script>
